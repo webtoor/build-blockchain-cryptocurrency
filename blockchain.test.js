@@ -36,28 +36,29 @@ describe('Blockchain', () => {
                 blockchain.addBlock({data : 'Bears'});
                 blockchain.addBlock({data : 'Beets'});
                 blockchain.addBlock({data : 'Battlestar Galactica'});
-            })
-            describe('and the chain contains the block with an invalid field', () => {
+            });
+
+            describe('and a lastHash reference has changed', () => {
                 it('return false', () => {
                     blockchain.chain[2].lastHash = 'broken-lastHash';
                     
                     expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
                 });
             });
-        });
+        
+            describe('and the chain constains a block with an invalid field', () => {
+                it('return false', () => {
+                    blockchain.chain[2].data = 'some-bad-and-evil-data';
+                    
+                    expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+                });
+            });
 
-        describe('and the chain constains a block with an invalid field', () => {
-            it('return false', () => {
-                blockchain.chain[2].data = 'some-bad-and-evil-data';
-                
-                expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+            describe('and the chain does not contain any invalid blocks', () => {
+                it('return true', () => {                
+                    expect(Blockchain.isValidChain(blockchain.chain)).toBe(true);
+                });
             });
         });
-
-        describe('and the chain does not contain any invalid blocks', () => {
-            it('return true', () => {                
-                expect(Blockchain.isValidChain(blockchain.chain)).toBe(true);
-            });
-        });
-    })
-})
+    });
+});
