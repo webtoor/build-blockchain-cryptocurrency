@@ -13,6 +13,9 @@ for (let i=0; i<10000; i++){
     prevTimestamp = blockchain.chain[blockchain.chain.length-1].timestamp;
 
     blockchain.addBlock({ data : `block ${i}`});
+
+    console.log('first block', blockchain.chain[blockchain.chain.length-1]);
+
     nextBlock = blockchain.chain[blockchain.chain.length-1];
 
     nextTimestamp = nextBlock.timestamp;
