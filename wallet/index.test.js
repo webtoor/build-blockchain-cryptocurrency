@@ -68,6 +68,26 @@ describe('Wallet', () => {
             });
 
         });
+
+        describe('and a chain is passed', () => {
+            it('called `Wallet.calculateBalance`', () => {
+                const calculateBalanceMock = jest.fn();
+
+                const originalCalculateBalance = Wallet.calculateBalance;
+
+                Wallet.calculateBalance = calculateBalanceMock;
+
+                wallet.createTransaction({
+                    recipient: 'foo',
+                    amount: 10,
+                    chain: new Blockchain().chain
+                });
+
+                expect(calculateBalanceMock).toHaveBeenCalled();
+
+                Wallet.calculateBalance = originalCalculateBalance;
+            });
+        });
     });
 
     describe('calculateBalance()', () => {
@@ -103,7 +123,7 @@ describe('Wallet', () => {
 
                 blockchain.addBlock({ data: [transactionOne, transactionTwo]});
             });
-            
+
             it('adds the sum of all outputs to the wallet balance', () => {
                 expect(Wallet.calculateBalance({ 
                     chain: blockchain.chain,
