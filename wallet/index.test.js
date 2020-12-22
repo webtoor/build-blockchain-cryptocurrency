@@ -160,7 +160,7 @@ describe('Wallet', () => {
 
                     beforeEach(() => {
                         recentTransaction = wallet.createTransaction({
-                            recipient: 'foo-addres',
+                            recipient: 'later-foo-addres',
                             amount: 60
                         });
     
